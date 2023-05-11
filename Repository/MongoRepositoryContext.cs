@@ -13,7 +13,7 @@ public class MongoRepositoryContext
         _database = client.GetDatabase(databaseName);
     }
 
-    public IMongoCollection<Order> Users => _database.GetCollection<Order>("orders");
+    public IMongoCollection<RequestedOrder> Users => _database.GetCollection<RequestedOrder>("orders");
 
     // Other entity collections can be added here as well
 }

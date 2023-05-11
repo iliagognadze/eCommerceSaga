@@ -19,7 +19,7 @@ public class OrdersController : ControllerBase
     public async Task<IActionResult> CreateOrder([FromBody] OrderForCreationDto order)
     {
         var test = await _repositoryManager.OrderRepository.GetAll();
-        
+
         return Ok(test);
     }
 }

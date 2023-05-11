@@ -4,12 +4,12 @@ using MongoDB.Driver;
 
 namespace Repository;
 
-public class OrderRepository : RepositoryBase<Order>, IOrderRepository
+public class OrderRepository : RepositoryBase<RequestedOrder>, IOrderRepository
 {
-    public OrderRepository(IMongoCollection<Order> collection) : base(collection)
+    public OrderRepository(IMongoCollection<RequestedOrder> collection) : base(collection)
     {
     }
 
-    public async Task<IEnumerable<Order>> GetAll() => await GetAllAsync();
+    public async Task<IEnumerable<RequestedOrder>> GetAll() => await GetAllAsync();
 
 }
