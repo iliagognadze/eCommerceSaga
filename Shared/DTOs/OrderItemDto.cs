@@ -1,6 +1,6 @@
 ﻿namespace Shared.DTOs;
 
-public class OrderItem
+public class OrderItemDto
 {
     public int Id { get; set; }
     public string ProductName { get; set; }
