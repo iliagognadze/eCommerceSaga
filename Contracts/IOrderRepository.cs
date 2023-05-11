@@ -4,5 +4,5 @@ namespace Contracts;
 
 public interface IOrderRepository
 {
-    public IEnumerable<Order> GetAll();
+    Task<IEnumerable<Order>> GetAll();
 }
