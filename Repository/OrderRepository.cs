@@ -1,12 +1,12 @@
 ﻿using Contracts;
 using Entities.Models;
+using MongoDB.Driver;
 
 namespace Repository;
 
 public class OrderRepository : RepositoryBase<Order>, IOrderRepository
 {
-    public OrderRepository(string connectionString, string databaseName, string collectionName) : base(
-        connectionString, databaseName, collectionName)
+    public OrderRepository(IMongoCollection<Order> collection) : base(collection)
     {
     }
 

@@ -1,4 +1,6 @@
 ﻿using Contracts;
+using Entities.Models;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace Repository;
@@ -10,13 +12,16 @@ public class RepositoryManager : IRepositoryManager
     private readonly IMongoDatabase _database;
     private readonly IClientSessionHandle _session;
 
-    public RepositoryManager(IMongoClient client)
+    public RepositoryManager(IOptions<ECommerceDatabaseSettings> eCommerceDatabaseSettings)
     {
-        _database = client.GetDatabase("mydatabase");
-        _session = client.StartSession();
+        var mongoClient = new MongoClient(eCommerceDatabaseSettings.Value.ConnectionString);
+        _database = mongoClient.GetDatabase(eCommerceDatabaseSettings.Value.DatabaseName);
+        
+        _session = mongoClient.StartSession();
 
         _orderRepository = new Lazy<IOrderRepository>(() =>
-            new OrderRepository("", "", ""));
+            new OrderRepository(_database.GetCollection<Order>
+                (eCommerceDatabaseSettings.Value.RequestedOrdersCollectionName)));
     }
 
     public IOrderRepository OrderRepository => _orderRepository.Value;

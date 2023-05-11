@@ -1,6 +1,12 @@
+using eCommerce.API.Extensions;
+using Entities.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<ECommerceDatabaseSettings>
+    (builder.Configuration.GetSection("eCommerceDatabase"));
+builder.Services.ConfigureRepositoryManager();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

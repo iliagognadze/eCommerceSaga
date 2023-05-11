@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Contracts;
+using Microsoft.AspNetCore.Mvc;
 using Shared.DTOs;
 
 namespace eCommerce.API.Controllers;
@@ -7,13 +8,18 @@ namespace eCommerce.API.Controllers;
 [Route("api/orders")]
 public class OrdersController : ControllerBase
 {
-    public OrdersController()
+    private readonly IRepositoryManager _repositoryManager;
+    
+    public OrdersController(IRepositoryManager repositoryManager)
     {
+        _repositoryManager = repositoryManager;
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateOrder([FromBody] OrderForCreationDto order)
     {
-        return Ok(order);
+        var test = await _repositoryManager.OrderRepository.GetAll();
+        
+        return Ok(test);
     }
 }

@@ -8,11 +8,9 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : class
 {
     private readonly IMongoCollection<T> _collection;
 
-    protected RepositoryBase(string connectionString, string databaseName, string collectionName)
+    protected RepositoryBase(IMongoCollection<T> collection)
     {
-        var client = new MongoClient(connectionString);
-        var database = client.GetDatabase(databaseName);
-        _collection = database.GetCollection<T>(collectionName);
+        _collection = collection;
     }
 
     public async Task AddAsync(T entity) => 
